@@ -1,7 +1,5 @@
 # Monitor Light
 
-[![Build](https://github.com/Duoslow/monitor-light/actions/workflows/build.yml/badge.svg)](https://github.com/Duoslow/monitor-light/actions/workflows/build.yml)
-
 Wi-Fi control for a monitor light bar with warm and cool white LEDs. An ESP8266 drives the bar and serves a small HTTP API. A Windows tray app gives you one hotkey for on/off and a panel for brightness and colour temperature.
 
 <p>
@@ -29,7 +27,6 @@ MonitorLight.ico         app icon
 build.bat                builds MonitorLight.exe
 lamp-control.bat         command-line / menu control
 images/                  screenshots
-.github/workflows/      CI: builds the app, compiles the firmware, attaches the exe to releases
 ```
 
 ## Hardware
