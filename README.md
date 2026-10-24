@@ -82,6 +82,8 @@ curl -X POST http://desk-lamp.local/api/lamp/off
 
 ## Windows app
 
+Requires Windows 10 or 11. The app uses .NET Framework 4, which is part of Windows, so there is nothing else to install.
+
 ### Download or build
 
 Download `MonitorLight.exe` from the [latest release](https://github.com/Duoslow/monitor-light/releases/latest) and run it; no install is needed. Windows SmartScreen may warn about an unsigned app the first time: choose **More info → Run anyway**.
