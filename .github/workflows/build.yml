@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: write   # attach MonitorLight.exe to releases
+
+jobs:
+  app:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build MonitorLight.exe
+        shell: cmd
+        run: build.bat
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MonitorLight
+          path: MonitorLight.exe
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: MonitorLight.exe
+
+  firmware:
+    runs-on: ubuntu-latest
+    env:
+      ESP8266_URL: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Install the ESP8266 core
+        run: |
+          arduino-cli core update-index --additional-urls "$ESP8266_URL"
+          arduino-cli core install esp8266:esp8266 --additional-urls "$ESP8266_URL"
+      - name: Compile the sketch
+        run: |
+          cp firmware/monitor-light/secrets.example.h firmware/monitor-light/secrets.h
+          arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 --additional-urls "$ESP8266_URL" firmware/monitor-light

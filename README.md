@@ -1,5 +1,7 @@
 # Monitor Light
 
+[![Build](https://github.com/Duoslow/monitor-light/actions/workflows/build.yml/badge.svg)](https://github.com/Duoslow/monitor-light/actions/workflows/build.yml)
+
 Wi-Fi control for a monitor light bar with warm and cool white LEDs. An ESP8266 drives the bar and serves a small HTTP API. A Windows tray app gives you one hotkey for on/off and a panel for brightness and colour temperature.
 
 <p>
@@ -27,6 +29,7 @@ MonitorLight.ico         app icon
 build.bat                builds MonitorLight.exe
 lamp-control.bat         command-line / menu control
 images/                  screenshots
+.github/workflows/      CI: builds the app, compiles the firmware, attaches the exe to releases
 ```
 
 ## Hardware
@@ -82,7 +85,11 @@ curl -X POST http://desk-lamp.local/api/lamp/off
 
 ## Windows app
 
-### Build
+### Download or build
+
+Download `MonitorLight.exe` from the [latest release](https://github.com/Duoslow/monitor-light/releases/latest) and run it; no install is needed. Windows SmartScreen may warn about an unsigned app the first time: choose **More info → Run anyway**.
+
+Or build it yourself:
 
 ```
 build.bat
@@ -130,3 +137,7 @@ lamp-control.bat temperature 4000
 - **Tray icon is red / "Not reachable":** check that the light has power and is on the same network. If `desk-lamp.local` does not resolve, set the `LAMP_URL` environment variable to the light's IP address (for example `http://192.168.1.50`) and restart the app. `lamp-control.bat` uses the same variable.
 - **"Ctrl+Alt+L is used by another app":** another program has registered the hotkey. The tray icon and panel still work.
 - **The light flickers on camera:** the PWM runs at 1 kHz. Raise `analogWriteFreq` in the sketch if your camera picks it up.
+
+## License
+
+[MIT](LICENSE)
